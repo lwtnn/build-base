@@ -1,5 +1,5 @@
 ARG BASE_IMAGE=gcc:11.1.0
-FROM ${BASE_IMAGE} as builder
+FROM ${BASE_IMAGE} as base
 
 USER root
 ENV HOME=/root
