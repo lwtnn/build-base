@@ -20,6 +20,6 @@ RUN apt-get update -y && \
     apt-get -y autoclean && \
     apt-get -y autoremove && \
     rm -rf /var/lib/apt/lists/* && \
-    python3 -m venv /usr/local/venv
+    python3 -m venv /usr/local/venv && \
     . /usr/local/venv/bin/activate && \
     python -m pip --no-cache-dir install --upgrade pip setuptools wheel
