@@ -26,11 +26,12 @@ RUN apt-get update -y && \
     python3 -m venv /usr/local/venv && \
     . /usr/local/venv/bin/activate && \
     python -m pip --no-cache-dir install --upgrade pip setuptools wheel && \
-    python -m pip --no-cache-dir install pybind11 && \
+    python -m pip --no-cache-dir install "pybind11~=2.7.1" && \
+    echo "Build and install autodiff" && \
     git clone --depth 1 https://github.com/autodiff/autodiff.git \
       --branch "${AUTODIFF_TARGET_BRANCH}" \
       --single-branch && \
-    cd autodiff && \
+    pushd autodiff && \
     cmake \
       -Dpybind11_DIR=$(dirname $(find /usr/local -name "pybind11Config.cmake")) \
       -DCMAKE_INSTALL_PREFIX=/usr/local/venv \
@@ -40,4 +41,6 @@ RUN apt-get update -y && \
     cmake --build _build \
       --clean-first \
       --parallel $(($(nproc) - 1)) && \
-    cmake --build _build --target install
+    cmake --build _build --target install && \
+    popd && \
+    rm -rf autodiff
