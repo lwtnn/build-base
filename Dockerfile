@@ -9,7 +9,7 @@ SHELL [ "/bin/bash", "-c" ]
 
 # Set PATH to pickup virtualenv by default
 ENV PATH=/usr/local/venv/bin:"${PATH}"
-ARG TARGET_BRANCH=v0.6.4
+ARG AUTODIFF_TARGET_BRANCH=v0.6.4
 RUN apt-get update -y && \
     apt-get install -y \
       cmake \
@@ -28,7 +28,7 @@ RUN apt-get update -y && \
     python -m pip --no-cache-dir install --upgrade pip setuptools wheel && \
     python -m pip --no-cache-dir install pybind11 && \
     git clone --depth 1 https://github.com/autodiff/autodiff.git \
-      --branch "${TARGET_BRANCH}" \
+      --branch "${AUTODIFF_TARGET_BRANCH}" \
       --single-branch && \
     cd autodiff && \
     cmake \
